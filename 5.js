@@ -11,11 +11,11 @@ const urlEncode = function(text) {
 	*/
 
 	text = text.trim();
-	for(let i = 0; i < text.length; i++){
-		if(text[i] === ' ')
+	for(let i of text){
+		if(i === ' ')
 			encodedString += '%20';
 		else
-			encodedString += text[i];
+			encodedString += i;
 	}
 	return encodedString;
 };
