@@ -43,6 +43,14 @@ const totalVolume = function (solids) {
         totalVol += coneVolume(i.radius, i.height);
         break;
       }
+      case 'prism':{
+        totalVol += prismVolume(i.height, i.width, i.depth);
+        break;
+      }
+      default:{
+        console.error('ERROR: ' + i.type + ': Not a supported shape object.');
+        break;
+      }
     }
   }
   return totalVol;
