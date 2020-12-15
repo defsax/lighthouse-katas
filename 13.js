@@ -1,9 +1,13 @@
 const convertDate = function(dateObj){
   let phrase;
   let number = dateObj[2];
+
+  //remove leading 0 if less than 10
   if(number < 10){
     number = number % 10;
   }
+
+  //specific cases, can be improved
   if(Number(number) % 10 === 1){
     if(number === '11')
       number += 'th';
@@ -21,7 +25,6 @@ const convertDate = function(dateObj){
   } 
 
   let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  let suffix = ['st', 'nd', 'rd', 'th'];
 
   phrase = months[Number(dateObj[1] - 1)] + ' ' + number + ', ' + dateObj[0];
 
