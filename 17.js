@@ -4,16 +4,9 @@ const urlDecode = function(text) {
 
   for(let i of seperateMultiKeyValue){
     let keyValuePair = i.split('=');
-    let values = keyValuePair[1].split('%20');
+    let values = keyValuePair[1].split('%20').join(' ');
 
-    let valueString = '';
-    for(let j = 0; j < values.length; j++){
-      if(j === values.length - 1)
-        valueString += values[j];
-      else
-        valueString += values[j] + ' ';
-    }
-    converted[keyValuePair[0]] = valueString;
+    converted[keyValuePair[0]] = values;
   }
   return converted;
 };
