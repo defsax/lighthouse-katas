@@ -1,84 +1,103 @@
+const order = [
+  'camel', 'pascal', 'snake', 'kebab', 'title',
+  'vowel', 'consonant',
+  'upper', 'lower'
+];
+
+const reorderCases = function(cases){
+  let sorted = [];
+
+  for(let i of order){
+    for(let j of cases){
+      if(i === j){
+        sorted.push(j);
+      }
+    }
+  }
+  return sorted;
+};
+
 const camel = function (input) {
-  let converted = ''
+  let converted = '';
   for (let i = 0; i < input.length; i++) {
     if (input[i] === ' ') {
       // if letter is a space, add next letter as a capital
-      converted += input[i + 1].toUpperCase()
+      converted += input[i + 1].toUpperCase();
       // skip ahead to avoid duplicate letters
-      i++
+      i++;
     } else {
       // if letter is not a space, add like normal
-      converted += input[i]
+      converted += input[i];
     }
   }
-  return converted
-}
+  return converted;
+};
 
 const pascal = function (input) {
-  let converted = ''
+  let converted = '';
   for (let i = 0; i < input.length; i++) {
     // if we're on the first letter, capitalize it
     if (i === 0) {
-      converted += input[0].toUpperCase()
+      converted += input[0].toUpperCase();
     } else if (input[i] === ' ') {
       // if letter is a space, add next letter as a capital
-      converted += input[i + 1].toUpperCase()
+      converted += input[i + 1].toUpperCase();
       // skip ahead to avoid duplicate letters
-      i++
+      i++;
     } else {
       // if letter is not a space, add like normal
-      converted += input[i]
+      converted += input[i];
     }
   }
-  return converted
-}
+  return converted;
+};
 
 const snake = function (input) {
-  let converted = ''
+  let converted = '';
   for (let i = 0; i < input.length; i++) {
     if (input[i] === ' ') {
       // if letter is a space, add an underscore
-      converted += '_'
+      converted += '_';
     } else {
       // if letter is not a space, add like normal
-      converted += input[i]
+      converted += input[i];
     }
   }
-  return converted
-}
+  return converted;
+};
 const kebab = function (input) {
-  let converted = ''
+  let converted = '';
   for (let i = 0; i < input.length; i++) {
     if (input[i] === ' ') {
       // if letter is a space, add a skewer
-      converted += '-'
+      converted += '-';
     } else {
       // if letter is not a space, add like normal
-      converted += input[i]
+      converted += input[i];
     }
   }
-  return converted
-}
+  return converted;
+};
 
 const title = function (input) {
-  let converted = ''
+  let converted = '';
   for (let i = 0; i < input.length; i++) {
     // if we're on the first letter, capitalize it
     if (i === 0) {
-      converted += input[0].toUpperCase()
+      converted += input[0].toUpperCase();
     } else if (input[i] === ' ') {
       // if letter is a space, add space and next letter as a capital
-      converted += ' '
-      converted += input[i + 1].toUpperCase()
+      converted += ' ';
+      converted += input[i + 1].toUpperCase();
       // skip ahead to avoid duplicate letters
-      i++
+      i++;
     } else {
       // if letter is not a space, add like normal
-      converted += input[i]
+      converted += input[i];
     }
   }
-  return converted
-}
+  return converted;
+};
 
 const vowel = function (input) {
   /*
@@ -87,20 +106,20 @@ const vowel = function (input) {
     - loop vowels letter by letter
     - if there's a match, remove existing(same) letter and capitalize
   */
-  const vowels = ['a', 'e', 'i', 'o', 'u']
-  let converted = ''
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  let converted = '';
   for (const i of input) {
-    converted += i
+    converted += i;
     for (const j of vowels) {
       if (j === i) {
-        converted = converted.substring(0, converted.length - 1)
-        converted += i.toUpperCase()
-        continue
+        converted = converted.substring(0, converted.length - 1);
+        converted += i.toUpperCase();
+        continue;
       }
     }
   }
-  return converted
-}
+  return converted;
+};
 
 const consonant = function (input) {
   // same as vowels but with consonants
@@ -108,104 +127,108 @@ const consonant = function (input) {
     'b', 'c', 'd', 'f', 'g', 'h', 'j',
     'k', 'l', 'm', 'n', 'p', 'q', 'r',
     's', 't', 'v', 'w', 'x', 'y', 'z'
-  ]
-  let converted = ''
+  ];
+  let converted = '';
   for (const i of input) {
-    converted += i
+    converted += i;
     for (const j of consonants) {
       if (j === i) {
-        converted = converted.substring(0, converted.length - 1)
-        converted += i.toUpperCase()
-        continue
+        converted = converted.substring(0, converted.length - 1);
+        converted += i.toUpperCase();
+        continue;
       }
     }
   }
-  return converted
-}
+  return converted;
+};
 
 const upper = function (input) {
-  let converted = ' '
+  let converted = '';
   for (const i of input) {
-    converted += i.toUpperCase()
+    converted += i.toUpperCase();
   }
-  return converted
-}
+  return converted;
+};
 
 const lower = function (input) {
-  let converted = ' '
+  let converted = '';
   for (const i of input) {
-    converted += i.toLowerCase()
+    converted += i.toLowerCase();
   }
-  return converted
-}
+  return converted;
+};
 
 const sortCase = function (input, caseStyle) {
-  let convertedString = ' '
+  let convertedString = ' ';
   switch (caseStyle) {
-    case 'camel': {
-      convertedString = camel(input)
-      break
-    }
-    case 'pascal': {
-      convertedString = pascal(input)
-      break
-    }
-    case 'snake': {
-      convertedString = snake(input)
-      break
-    }
-    case 'kebab': {
-      convertedString = kebab(input)
-      break
-    }
-    case 'title': {
-      convertedString = title(input)
-      break
-    }
-    case 'vowel': {
-      convertedString = vowel(input)
-      break
-    }
-    case 'consonant': {
-      convertedString = consonant(input)
-      break
-    }
-    case 'upper': {
-      convertedString = upper(input)
-      break
-    }
-    case 'lower': {
-      convertedString = lower(input)
-      break
-    }
-    default:
-      break
+  case 'camel': {
+    convertedString = camel(input);
+    break;
   }
-  return convertedString
-}
+  case 'pascal': {
+    convertedString = pascal(input);
+    break;
+  }
+  case 'snake': {
+    convertedString = snake(input);
+    break;
+  }
+  case 'kebab': {
+    convertedString = kebab(input);
+    break;
+  }
+  case 'title': {
+    convertedString = title(input);
+    break;
+  }
+  case 'vowel': {
+    convertedString = vowel(input);
+    break;
+  }
+  case 'consonant': {
+    convertedString = consonant(input);
+    break;
+  }
+  case 'upper': {
+    convertedString = upper(input);
+    break;
+  }
+  case 'lower': {
+    convertedString = lower(input);
+    break;
+  }
+  default:
+    break;
+  }
+  return convertedString;
+};
 
 const makeCase = function (input, caseStyle) {
-  let convertedString = input
+  let convertedString = input;
 
   if (typeof (caseStyle) === 'object') {
     /*
-      - if case is an object(it requires multiple case operations), loop switch statement multiple times
+      - if case is an object(it requires multiple case operations),loop switch statement multiple times
+      - sort object to account for order of operations
     */
+    caseStyle = reorderCases(caseStyle);
+
     for (const i of caseStyle) {
-      convertedString = sortCase(convertedString, i)
+      convertedString = sortCase(convertedString, i);
     }
   } else {
     // run switch only once
-    convertedString = sortCase(convertedString, caseStyle)
+    convertedString = sortCase(convertedString, caseStyle);
   }
-  return convertedString
-}
+  
+  return convertedString;
+};
 
-console.log(makeCase('this is a string', 'camel'))
-console.log(makeCase('this is a string', 'pascal'))
-console.log(makeCase('this is a string', 'snake'))
-console.log(makeCase('this is a string', 'kebab'))
-console.log(makeCase('this is a string', 'title'))
-console.log(makeCase('this is a string', 'vowel'))
-console.log(makeCase('this is a string', 'consonant'))
-console.log(makeCase('this is a string', ['upper', 'snake']))
+console.log(makeCase('this is a string', 'camel'));
+console.log(makeCase('this is a string', 'pascal'));
+console.log(makeCase('this is a string', 'snake'));
+console.log(makeCase('this is a string', 'kebab'));
+console.log(makeCase('this is a string', 'title'));
+console.log(makeCase('this is a string', 'vowel'));
+console.log(makeCase('this is a string', 'consonant'));
+console.log(makeCase('this is a string', ['upper', 'snake']));
