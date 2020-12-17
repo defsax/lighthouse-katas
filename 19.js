@@ -5,17 +5,17 @@ const directions = [
   //up, right, down, left
   [0, -1], [1, 0], [0, 1], [-1, 0],
   //up-right, down-right, down-left, up-left
-  [-1, 1], [1, 1], [1, -1], [-1, -1]
+  [1, -1], [1, 1], [-1, 1], [-1, -1]
 ];
 
 const generateBoard = function(wQueen, bQueen){
-  let board = new Array(8);
-  for(let i = 0; i < 8; i++){
-    board[i] = new Array(8);
+  let board = new Array(WIDTH);
+  for(let i = 0; i < WIDTH; i++){
+    board[i] = new Array(HEIGHT);
 
-    for(let j = 0; j < 8; j++){
-      if(wQueen[0] === i && wQueen[1] === j || 
-        bQueen[0] === i && bQueen[1] === j)
+    for(let j = 0; j < HEIGHT; j++){
+      if(wQueen[0] === j && wQueen[1] === i || 
+        bQueen[0] === j && bQueen[1] === i)
         board[i][j] = 1;
       else 
         board[i][j] = 0;
@@ -24,63 +24,52 @@ const generateBoard = function(wQueen, bQueen){
   return board;
 };
 
-const queenThreat = function(generatedBoard){
-  let threat = false;
-
-
-
-  return threat;
+const detectQueenPosition = function(board){
+  for(let i = 0; i < WIDTH; i++){
+    for(let j = 0; j < HEIGHT; j++){
+      if(board[i][j] === 1){
+        return [i, j];
+      }
+    }
+  }
+  return 'Board doesn\'t have any queens.';
 };
 
-const move = function(board, position){
-  let xPos;
-  let yPos;
-
-  let xMove;
-  let yMove;
-  for(let moves = 0; moves < directions.length; moves++){
-    xPos = position[0];
-    yPos = position[1];
-
-    yMove = directions[moves][1];
-    xMove = directions[moves][0];
-    let cell = 0;
-    let count = 0;
-    while((xPos < WIDTH - 1 || xPos > 0) && (yPos < HEIGHT - 1 || yPos > 0)){
-      console.log(xPos < WIDTH - 1);
-      console.log(xPos > 0);
-      console.log(yPos < HEIGHT - 1);
-      console.log(yPos > 0);
-
-      if(board[xPos][yPos] !== undefined)
-        console.log(board[xPos][yPos]);
-      console.log('x: ' + xPos);
-      console.log('y: ' + yPos + '\n');
-      // cell = board[xPos][yPos];
-      board[yPos][xPos] = '#';
-      console.log(board);
-
-      if((xPos < WIDTH - 1 && xPos > 0) && (yPos < HEIGHT - 1 && yPos > 0)){
-        xPos += xMove;
-        yPos += yMove;
-      }
-      // console.log('cell: ' + cell);
-      count++;
-    }
-    count = 0;
-    cell = 0;
-  }
-
-  console.log(board);
-  console.log(' ');
+const queenThreat = function(generatedBoard){
   
+  //first, find queen location. white or black, whichever is detected first.
+  let position = detectQueenPosition(generatedBoard);
 
-  return board;
+  //loop through move vector list
+  for(let move = 0; move < directions.length; move++){
+    let pos = {x: position[0], y: position[1]};
+
+    //keep going on vector until we hit the 'board's edge'
+    while((pos.x < WIDTH && pos.x >= 0) && (pos.y < HEIGHT && pos.y >= 0)){
+      //if cell contains a 1, it's a queen. 
+      //also, make sure that we're not detecting the queen in the starting cell
+      if(generatedBoard[pos.x][pos.y] === 1 && 
+        pos.x !== position[0] && 
+        pos.y !== position[1]){
+        return true;
+      }
+      //move position by adding vector
+      pos.x += directions[move][0];
+      pos.y += directions[move][1];
+    }
+  }
+  //no queen threat detected
+  return false;
 };
 
 let whiteQueen = [0, 5];
 let blackQueen = [5, 0];
 let generatedBoard = generateBoard(whiteQueen, blackQueen);
-console.log(move(generatedBoard, [5, 5]));
-//console.log(generatedBoard);
+console.log(generatedBoard);
+console.log(queenThreat(generatedBoard));
+
+whiteQueen = [0, 0];
+blackQueen = [5, 7];
+generatedBoard = generateBoard(whiteQueen, blackQueen);
+console.log(generatedBoard);
 console.log(queenThreat(generatedBoard));
