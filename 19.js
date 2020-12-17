@@ -1,6 +1,7 @@
 const WIDTH = 8;
 const HEIGHT = 8;
 
+//direction vectors
 const directions = [
   //up, right, down, left
   [0, -1], [1, 0], [0, 1], [-1, 0],
