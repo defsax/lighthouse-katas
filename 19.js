@@ -14,8 +14,8 @@ const generateBoard = function(wQueen, bQueen){
     board[i] = new Array(HEIGHT);
 
     for(let j = 0; j < HEIGHT; j++){
-      if(wQueen[0] === j && wQueen[1] === i || 
-        bQueen[0] === j && bQueen[1] === i)
+      if(wQueen[0] === i && wQueen[1] === j || 
+        bQueen[0] === i && bQueen[1] === j)
         board[i][j] = 1;
       else 
         board[i][j] = 0;
